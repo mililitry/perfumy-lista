@@ -64,7 +64,7 @@ function saveList() {
     localStorage.setItem('productList', listJson);
 
     const randomId = Math.random().toString(36).substr(2, 9);
-    const uniqueUrl = `https://your-github-username.github.io/perfumy-lista/${randomId}`;
+    const uniqueUrl = `https://mililitry.github.io/perfumy-lista/${randomId}`;
 
     document.getElementById('generatedLink').innerText = `Twoja lista jest dostępna pod adresem: ${uniqueUrl}`;
 }
