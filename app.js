@@ -1,5 +1,5 @@
-let products = [];
-let shippingOptions = [];
+let products = JSON.parse(localStorage.getItem('productList')) || [];
+let shippingOptions = JSON.parse(localStorage.getItem('shippingList')) || [];
 
 function addProduct() {
     const name = document.getElementById('productName').value;
@@ -59,12 +59,48 @@ function removeShipping(index) {
 }
 
 function saveList() {
-    const listData = { products, shippingOptions };
-    const listJson = JSON.stringify(listData);
-    localStorage.setItem('productList', listJson);
+    localStorage.setItem('productList', JSON.stringify(products));
+    localStorage.setItem('shippingList', JSON.stringify(shippingOptions));
+    document.getElementById('saveMessage').innerText = 'Lista została zapisana.';
+    displayOrderForm();
+}
 
-    const randomId = Math.random().toString(36).substr(2, 9);
-    const uniqueUrl = `https://mililitry.github.io/perfumy-lista/${randomId}`;
+function displayOrderForm() {
+    const orderForm = document.getElementById('order-form');
+    orderForm.innerHTML = '';
+    products.forEach((product, index) => {
+        const orderDiv = document.createElement('div');
+        orderDiv.innerHTML = `
+            <p>${product.name} - Dostępne: ${product.availableMl} ml, Cena za ml: ${product.pricePerMl} PLN
+            <label>Ilość ml: </label><input type="number" id="quantity-${index}" min="1" max="${product.availableMl}">
+        `;
+        orderForm.appendChild(orderDiv);
+    });
 
-    document.getElementById('generatedLink').innerText = `Twoja lista jest dostępna pod adresem: ${uniqueUrl}`;
+    const shippingSelect = document.createElement('select');
+    shippingSelect.id = 'shippingMethodSelect';
+    shippingOptions.forEach(option => {
+        const optionElement = document.createElement('option');
+        optionElement.value = option.method;
+        optionElement.text = `${option.method} - ${option.cost} PLN`;
+        shippingSelect.appendChild(optionElement);
+    });
+    orderForm.appendChild(shippingSelect);
+}
+
+function placeOrder() {
+    const buyerName = document.getElementById('buyerName').value;
+    let orderSummary = `Zamówienie od: ${buyerName}\n`;
+
+    products.forEach((product, index) => {
+        const quantity = document.getElementById(`quantity-${index}`).value;
+        if (quantity > 0) {
+            orderSummary += `${product.name} - Ilość: ${quantity} ml\n`;
+        }
+    });
+
+    const selectedShipping = document.getElementById('shippingMethodSelect').value;
+    orderSummary += `Wybrana wysyłka: ${selectedShipping}`;
+
+    document.getElementById('orderSummary').innerText = orderSummary;
 }
