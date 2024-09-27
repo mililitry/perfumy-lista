@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Perfum na Sprzedaż</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista Perfum na Sprzedaż</h1>
+
+        <!-- Sekcja tworzenia listy produktów -->
+        <div id="product-section">
+            <h2>Dodaj perfumy</h2>
+            <input type="text" id="productName" placeholder="Nazwa perfum">
+            <input type="number" id="availableMl" placeholder="Dostępne ml">
+            <input type="number" id="pricePerMl" placeholder="Cena za ml">
+            <button onclick="addProduct()">Dodaj produkt</button>
+            <div id="product-list"></div>
+        </div>
+
+        <!-- Sekcja opcji dostawy -->
+        <div id="shipping-section">
+            <h2>Opcje wysyłki</h2>
+            <input type="text" id="shippingMethod" placeholder="Sposób wysyłki">
+            <input type="number" id="shippingCost" placeholder="Koszt wysyłki">
+            <button onclick="addShipping()">Dodaj wysyłkę</button>
+            <div id="shipping-list"></div>
+        </div>
+
+        <!-- Sekcja zapisu listy -->
+        <button onclick="saveList()">Zapisz listę</button>
+        <p id="generatedLink"></p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
