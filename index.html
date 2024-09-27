@@ -10,7 +10,7 @@
     <div class="container">
         <h1>Lista Perfum na Sprzedaż</h1>
 
-        <!-- Sekcja tworzenia listy produktów -->
+        <!-- Sekcja tworzenia listy produktów przez sprzedawcę -->
         <div id="product-section">
             <h2>Dodaj perfumy</h2>
             <input type="text" id="productName" placeholder="Nazwa perfum">
@@ -31,7 +31,16 @@
 
         <!-- Sekcja zapisu listy -->
         <button onclick="saveList()">Zapisz listę</button>
-        <p id="generatedLink"></p>
+        <p id="saveMessage"></p>
+
+        <!-- Sekcja zamówienia przez kupującego -->
+        <div id="order-section">
+            <h2>Złóż zamówienie</h2>
+            <div id="order-form"></div>
+            <input type="text" id="buyerName" placeholder="Twoje imię lub nick">
+            <button onclick="placeOrder()">Złóż zamówienie</button>
+            <p id="orderSummary"></p>
+        </div>
     </div>
 
     <script src="app.js"></script>
